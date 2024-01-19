@@ -1,14 +1,54 @@
 import logo from './logo.svg';
+import { useEffect, useState } from "react";
 import './App.css';
 import { Auth } from "./components/auth.js";
+import { db } from "./config/firebase";
+import { getDocs, collection } from 'firebase/firestore';
 
 function App() {
+
+  const [hashtagList, setHashtagList] = useState([]);
+
+  const hashtagCollectionRef = collection(db, "Hashtags");
+
+  useEffect(() => {
+    //use async function to make the useEffect() work
+    const getHashtagList = async () => {
+      // read data from database
+      // set the resource list
+      try {
+        const data = await getDocs(hashtagCollectionRef);
+        const filteredData = data.docs.map((doc) =>({
+          ...doc.data(), 
+          id: doc.id,
+        }));
+        console.log(filteredData);
+        setHashtagList(filteredData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getHashtagList();
+
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <p> BPRC Resource Directory</p>
         <p> Access all available resources through the Boulder Pregnancy Rescource Center</p>
         <Auth />
+        <div>
+          {hashtagList.map((hashtags) => (
+            <div className = "List">
+              <h1> Hashtags </h1>
+              <p> {hashtags.hashtag1} </p>
+              <p> {hashtags.hashtag2} </p>
+              <p> {hashtags.hashtag3} </p>
+              </div>
+          ))}
+        </div>
       </header>
       
 
