@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import { useEffect, useState } from "react";
 import './App.css';
 import { Auth } from "./components/auth.js";
-import { db } from "./config/firebase";
+import { directory } from "./config/firebase";
 import { getDocs, collection } from 'firebase/firestore';
 import MainLayout from "./MainLayout"
 
@@ -12,7 +12,7 @@ function App() {
 
   const [hashtagList, setHashtagList] = useState([]);
 
-  const hashtagCollectionRef = collection(db, "Hashtags");
+  const hashtagCollectionRef = collection(directory, "Hashtags");
 
   useEffect(() => {
     //use async function to make the useEffect() work
