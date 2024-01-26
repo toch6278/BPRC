@@ -28,14 +28,16 @@ export const Auth = () => {
         }
         catch (err) 
         {
+            // catch error if no email is found
             console.error(err);
         }
     };
 
+    // logout user that was signed in
     const logout = async () => {
         try
         {
-            // create email and password 
+            // signOut function from firebase
             await signOut(auth);
         }
         catch (err) 
