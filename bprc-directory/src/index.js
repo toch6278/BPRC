@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Search from './pages/Search';
 import NewResource from './pages/NewResource';
+// import { resource, setResource } from './pages/NewResource';
 
 // code from React Router in order to change between pages of the project
 import {
@@ -24,7 +25,9 @@ const router = createBrowserRouter([
   },
   {
     path: "new-resource",
-    element: <NewResource/>,
+    element: <NewResource/>
+    // resource={resource}
+    // setResource={setResource}/>,
   },
 ]);
 

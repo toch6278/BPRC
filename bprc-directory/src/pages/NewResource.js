@@ -2,117 +2,159 @@ import React from 'react';
 import { useState } from 'react';
 import MainLayout from "../MainLayout";
 import {directory} from '../config/firebase';
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore";
+import "./style.css";
 
 // take inputs from page and write to firebase
-// https://www.youtube.com/watch?v=DV1sUeszRuA
+// https://www.youtube.com/watch?v=LCvBPsuHe6g&t=839s
+// https://www.youtube.com/watch?v=PkioTiY3u1A
 
-function NewResource() {
+function NewResource(){
 
     // set input values as objects of the resource 
-    const [resource, setResource] = useState({
-        name: "", 
-        phone: "", 
-        email: "", 
-        area: "", 
-        address: "", 
-        website: "", 
-        description: "",
-    });
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+    const [area, setArea] = useState('');
+    const [website, setWebsite] = useState('');
+    const [description, setDescription] = useState('');
+    const [hashtag1, setHashtag1] = useState('');
+    const [hashtag2, setHashtag2] = useState('');
 
-    // taking database reference from firebase to input into document
-    // directory = firebase.firestore();
+    const addResource = async (event) => {
+        event.preventDefault(); 
 
-    // function to change the data in firestore
-    const dataChange = (event) => {
-        // event.PreventDefault();
-        const {name, value} = event.target;
-        setResource((prev) => {
-            return {...prev, [name]: value};
-        })
+        const newResource = {
+            name, 
+            phone, 
+            email,
+            address,
+            area,
+            website,
+            description,
+            hashtag1,
+            hashtag2,
+        };
+        
+        console.log(newResource);
+
+        // Add doc to database 
+        try {
+            await addDoc(collection(directory, "Resources"), 
+            {
+                // spread values of newResource json
+                ...newResource
+            });
+        } catch (error) {
+            console.log(error)
+        }
+
+        alert("Added Resource to Database");
+        
+        // clear previous inputs
+        setName({ name: " " });
+        setPhone({ phone: " " });
+        setEmail({ email: " " });
+        setAddress({ address: " " });
+        setArea({ area: " " });
+        setWebsite({ website: " " });
+        setDescription({ description: " " });
+        setHashtag1({ hashtag1: " " });
+        setHashtag2({ hashtag2: " " });
+
     }
-
-    // // upload inputted data on site to documents on firebase 
-    // const addResourceDoc = (event) => {
-    //     event.PreventDefault();
-    //     // use .add() to create automatic ids for each resource
-    //     db.collection("Resources").add({
-    //         name: resource.name, 
-    //         phone: resource.phone,
-    //         email: resource.email,
-    //         area: resource.area,
-    //         address: resource.address,
-    //         website: resource.website,
-    //         description: resource.description,
-    //     }).then((resourceRef) => {
-    //         // receives a document reference from firestore after resource is created
-    //         const resourceId = resourceRef.id;
-    //         console.log(resourceId);
-    //     }).catch((err) => {
-    //         // catches any errors that might occur when creating the resource
-    //         console.log("error" + err.message);
-    //     })
-    // }
 
     return (
         <MainLayout>
-            <div> Add New Resource </div>
             {/* call funciton on form submision */}
-            <form>
-            {/* onSubmit = {addResourceDoc} */}
-                <input 
-                    type = "text" 
-                    name = "name" 
-                    value = {resource.name} 
-                    onChange = {dataChange}
-                    placeholder = "Resource Name"
-                />
-                <input 
-                    type = "text" 
-                    name = "phone" 
-                    value = {resource.phone}
-                    onChange = {dataChange}
-                    placeholder = "Phone Number"
-                />
-                <input 
-                    type = "text" 
-                    name = "email" 
-                    value = {resource.email} 
-                    onChange = {dataChange}
-                    placeholder = "Email Address"
-                />
-                <input 
-                    type = "text" 
-                    name = "area" 
-                    value = {resource.area} 
-                    onChange = {dataChange}
-                    placeholder = "Area"
-                />
-                <input 
-                    type = "text" 
-                    name = "address" 
-                    value = {resource.address} 
-                    onChange = {dataChange}
-                    placeholder = "Address"
-                />
-                <input 
-                    type = "text" 
-                    name = "website" 
-                    value = {resource.website} 
-                    onChange = {dataChange}
-                    placeholder = "Website"
-                />
-                <input 
-                    type = "text" 
-                    name = "description" 
-                    value = {resource.description} 
-                    onChange = {dataChange}
-                    placeholder = "Description"
-                />
-                <button> Save Resource </button>
-            </form>
+            <div className = 'container'> 
+                <form method = 'POST' onSubmit = {addResource}>
+                    <div className = 'title'> Add New Resource </div>
+                {/* onSubmit = {addResourceDoc} */}
+                    <input 
+                        type = "text" 
+                        name = "name" 
+                        value = {name} 
+                        onChange = {event => setName(event.target.value)}
+                        placeholder = "Resource Name"
+                        autoComplete = "off"
+                        required
+                    />
+                    <input 
+                        type = "text" 
+                        name = "phone" 
+                        value = {phone}
+                        onChange = {event => setPhone(event.target.value)}
+                        placeholder = "Phone Number"
+                        autoComplete = "off"
+                        required
+                    />
+                    <input 
+                        type = "text" 
+                        name = "email" 
+                        value = {email} 
+                        onChange = {event => setEmail(event.target.value)}
+                        placeholder = "Email Address"
+                        autoComplete = "off"
+                    />
+                    <input 
+                        type = "text" 
+                        name = "address" 
+                        value = {address} 
+                        onChange = {event => setAddress(event.target.value)}// onChange = {dataChange}
+                        placeholder = "Address"
+                        autoComplete = "off"
+                        required
+                    />
+                    <input 
+                        type = "text" 
+                        name = "area" 
+                        value = {area} 
+                        onChange = {event => setArea(event.target.value)}
+                        placeholder = "Area"
+                        autoComplete = "off"
+                        required
+                    />
+                    <input 
+                        type = "text" 
+                        name = "website" 
+                        value = {website} 
+                        onChange = {event => setWebsite(event.target.value)}
+                        placeholder = "Website"
+                        autoComplete = "off"
+                        required
+                    />
+                    <textarea 
+                        type = "text" 
+                        name = "description" 
+                        value = {description} 
+                        onChange = {event => setDescription(event.target.value)}
+                        placeholder = "Description"
+                        autoComplete = "off"
+                    />
+                    <input 
+                        type = "text" 
+                        name = "hashtag1" 
+                        value = {hashtag1} 
+                        onChange = {event => setHashtag1(event.target.value)}
+                        placeholder = "Hashtag #1"
+                        autoComplete = "off"
+                        required
+                    />
+                    <input 
+                        type = "text" 
+                        name = "hashtag2" 
+                        value = {hashtag2} 
+                        onChange = {event => setHashtag2(event.target.value)}
+                        placeholder = "Hashtag #2"
+                        autoComplete = "off"
+                    />
+                    <button> Save Resource </button>
+                </form>
+            </div>
         </MainLayout>
     )
-}
+};
 
-export default NewResource
+export default NewResource;
