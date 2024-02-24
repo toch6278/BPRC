@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
+@import "@fontsource/montserrat"; 
+@import "@fontsource/montserrat/400.css"; 
+@import "@fontsource/montserrat/400-italic.css"; 
+
+body {
+    font-family: "Montserrat";
+}
+
 * 
 {
     margin: 0; 
@@ -6,7 +16,62 @@
     box-sizing: border-box; 
 }
 
-.container form
+.navbar
+{
+    position: sticky; 
+    display: flex; 
+    justify-content: space-between; 
+    overflow: hidden; 
+    max-width: 1300px;
+    width: 100%;
+    z-index: 1;
+    background-color: #f4f4f4;
+    padding: 2em;
+    top: 0;
+    align-items: center;
+    margin: auto;
+}
+
+.navbar-logo
+{
+    font-weight: bold;
+}
+
+/* .menu1 .menu2 .menu3
+{
+    align-items: right;
+} */
+
+.links a
+{
+    color: #0A5A75;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 30px; 
+    cursor: pointer;
+    justify-content: center;
+}
+
+.hashtags
+{
+    margin: auto; 
+}
+
+.container 
+{
+    display: flex; 
+    justify-content: center; 
+    align-items: left;  
+    flex-direction: column;
+    padding: 2px -2px;
+    margin:  15px 100px 15px 100px;
+    background: #f4f4f4;
+    border-radius: 5px; 
+    max-width: 100%;
+    flex-direction: column;
+}
+
+/* .container form
 {
     display: flex; 
     justify-content: center; 
@@ -19,7 +84,7 @@
     border-radius: 5px; 
     max-width: 100%;
     flex-direction: column;
-}
+} */
 
 .container form div
 {
@@ -27,7 +92,7 @@
     margin: 50px; 
     padding: 10px 10px;
     background: none; 
-    color: blue;
+    color: #0A5A75;
 }
 
 .container form input
@@ -39,7 +104,7 @@
     border: none;
     outline: none; 
     border-bottom: 1px solid #000;
-    color: blue;
+    color: #0A5A75;
 }
 
 .container form textarea
@@ -51,7 +116,7 @@
     border: none;
     outline: none; 
     border-bottom: 1px solid #000;
-    color: blue;
+    color: #0A5A75;
     resize: none;
 }
 
@@ -64,6 +129,89 @@
     cursor: pointer;
     border: none; 
     outline: none; 
-    background: blue;
+    background: #0A5A75;
     color: white; 
+}
+
+.title
+{
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.container div
+{
+    text-align: center;
+    margin: 50px; 
+    padding: 10px 10px;
+    background: none; 
+    color: #0A5A75;
+}
+
+.container input
+{
+    margin: 10px 20px; 
+    padding: 10px 10px;
+    width: 300px;
+    background: none; 
+    border: none;
+    outline: none; 
+    border-bottom: 1px solid #000;
+    color: #0A5A75;
+}
+
+.container button
+{
+    width: 100%; 
+    padding: 20px 20px;
+    margin: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+    border: none; 
+    outline: none; 
+    background: #0A5A75;
+    color: white; 
+    border-radius: 50px; 
+}
+
+.form-container {
+    display: flex;
+    align-items: center; 
+}
+
+form {
+    width: 50%; 
+    margin: 0 auto; 
+}
+
+.signIn button
+{
+    width: 50%; 
+    padding: 20px 20px;
+    margin: 10px 20px;
+    margin-left: 30px;
+    cursor: pointer;
+    border: none; 
+    outline: none; 
+    background: #0A5A75;
+    color: white;  
+    border-radius: 50px; 
+    font-size: 14px;
+    font-weight: 2px;
+}
+
+.searchInputs button
+{
+    width: 50%; 
+    padding: 20px 20px;
+    margin: 2px 20px;
+    margin-left: 30px;
+    cursor: pointer;
+    border: none; 
+    outline: none; 
+    background: #0A5A75;
+    color: white;  
+    border-radius: 50px; 
+    font-size: 14px;
+    font-weight: 2px;
 }

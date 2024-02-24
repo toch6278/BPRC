@@ -6,6 +6,7 @@ import { directory } from "./config/firebase";
 import { getDocs, collection } from 'firebase/firestore';
 import MainLayout from "./MainLayout"
 
+
 // need to make sure to have node.js, react.js (npm install react), and firebase is connected (npx install firebase)
 // make sure you're in the right folder before you type npm start in the terminal
 function App() {
@@ -43,14 +44,14 @@ function App() {
         <p> BPRC Resource Directory</p>
         <p> Access all available resources through the Boulder Pregnancy Rescource Center</p>
         <Auth />
-        <div>
+        <div className = "hashtags">
           {hashtagList.map((hashtags) => (
             <div className = "List">
-              <h1> Hashtags </h1>
+              <h2> Hashtags </h2>
               <p> {hashtags.hashtag1} </p>
               <p> {hashtags.hashtag2} </p>
               <p> {hashtags.hashtag3} </p>
-              </div>
+            </div>
           ))}
         </div>
       </header>

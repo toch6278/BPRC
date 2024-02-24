@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
+
 .App {
   text-align: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 .App-logo {
@@ -25,7 +29,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #0A5A75;
 }
 
 @keyframes App-logo-spin {
@@ -43,5 +47,5 @@
 }
 
 navbar {
-  background-color: aqua;
+  background-color: #0A5A75;
 }

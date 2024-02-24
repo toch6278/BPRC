@@ -47,7 +47,7 @@ export const Auth = () => {
     };
 
     return (
-        <div>
+        <div className = "signIn">
             {/* <input placeholder = "Email..."  />
             <input placeholder = "Password..." /> */}
             <input 
