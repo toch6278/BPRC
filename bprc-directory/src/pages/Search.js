@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react';
 import MainLayout from "../MainLayout"
+import Hashtag from "../Hashtag"
 import { collection, query, where, doc, getDocs, deleteDoc } from "firebase/firestore";
 import { directory } from '../config/firebase';
 import "./style.css";
@@ -95,20 +96,8 @@ function Search() {
                         <div className = 'searchIcon'> </div>
                         <button > Search </button>
                     </div>
-                </div>
-
-                <div className = "hashtags">
-                    {/* {hashtagList.map((hashtags) => (
-                        <div className = "List">
-                        <h2> Hashtags </h2>
-                        <p> {hashtags.hashtag1} </p>
-                        <p> {hashtags.hashtag2} </p>
-                        <p> {hashtags.hashtag3} </p>
-                        </div>
-                    ))} */}
-                </div>
-            {/* </MainLayout> */}
-        
+                    <Hashtag/>
+                </div>       
         </div>
     )
 }
