@@ -10,40 +10,41 @@ function SearchResource() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-
-    console.log('collection:', collection(directory, 'Resources'));
-    console.log('where:', where);
-    console.log('searchTerm:', searchTerm);
-
     const fetchData = async () => {
         if (searchTerm.trim() === '') {
-          setSearchResults([]);
-          return;
+            setSearchResults([]);
+            return;
         }
-  
-        const q = query(collection(directory, 'Resources'), where('hashtag1', '==', searchTerm));
-  
+
         try {
-          const querySnapshot = await getDocs(q);
-          const results = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }));
-          setSearchResults(results);
+            // Fetch all documents from the 'Resources' collection
+            const querySnapshot = await getDocs(collection(directory, 'Resources'));
+
+            // Filter the documents based on the search term
+            const results = querySnapshot.docs
+            .filter((doc) => {
+                const data = doc.data();
+                return data.hashtag1 === searchTerm || data.hashtag2 === searchTerm || (!data.hashtag2 && data.hashtag1 === searchTerm);
+            })
+            .map((doc) => ({ id: doc.id, data: doc.data() }));
+
+            // Set the search results
+            setSearchResults(results);
         } catch (error) {
-          console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error);
         }
-      };
-  
-      fetchData();
-    }, [searchTerm]);
+        };
+
+        const handleSearch = (event) => {
+        event.preventDefault();
+        fetchData(); // Trigger fetchData when the search button is clicked
+    };
 
   return (
     <div>
       <MainLayout />
       <div className="container">
-        <div className="searchInputs">
+        <form onSubmit={handleSearch} className="searchInputs">
           <div className="title">Search Resource</div>
           <input
             type="text"
@@ -55,11 +56,11 @@ function SearchResource() {
           />
           <div className="searchIcon"></div>
           <button type="submit">Search</button>
-        </div>
+        </form>
         {/* <Hashtag /> */}
       </div>
       {/* <Map /> */}
-      <div>
+      <div className = "results">
         <h3>Result:</h3>
         <div className = "card">
             <ul>
@@ -70,21 +71,21 @@ function SearchResource() {
                         <>
                         <strong>ID:</strong> {result.id}
                         <br />
-                        <strong>name:</strong> {result.data.name}
+                        <strong>Resource Name:</strong> {result.data.name}
                         <br />
-                        <strong>hashtag1:</strong> {result.data.hashtag1}
+                        <strong>Hashtag1:</strong> {result.data.hashtag1}
                         <br />
-                        <strong>hashtag2:</strong> {result.data.hashtag2}
+                        <strong>Hashtag2:</strong> {result.data.hashtag2}
                         <br />
-                        <strong>phone:</strong> {result.data.phone}
+                        <strong>Phone Number:</strong> {result.data.phone}
                         <br />
-                        <strong>email:</strong> {result.data.email}
+                        <strong>Email Address:</strong> {result.data.email}
                         <br />
-                        <strong>address:</strong> {result.data.address}
+                        <strong>Adddress:</strong> {result.data.address}
                         <br />
-                        <strong>area:</strong> {result.data.area}
+                        <strong>Area:</strong> {result.data.area}
                         <br />
-                        <strong>website:</strong> {result.data.website}
+                        <strong>Website:</strong> {result.data.website}
                         <br />
                         {/* Include other fields as needed */}
                         {/* <strong>AnotherField:</strong> {result.data.AnotherField} */}

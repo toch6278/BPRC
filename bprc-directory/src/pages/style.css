@@ -216,3 +216,24 @@ form {
     font-size: 14px;
     font-weight: 2px;
 }
+
+.results
+{
+    background: #f4f4f4;
+    margin: 3em;
+    padding: 50px;
+}
+
+.results h3
+{
+    text-align: center;
+    color: #0A5A75;
+    font-size: 30px;
+    padding: 35px 20px;
+}
+
+.card
+{
+    background: white;
+    padding: 30px;
+}
