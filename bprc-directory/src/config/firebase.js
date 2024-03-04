@@ -1,6 +1,8 @@
 // https://www.youtube.com/watch?v=2hR-uWjBAgw
 
 // Import the functions you need from the SDKs you need
+// import firebase from 'firebase/app'
+import 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 // don't need if going to deploy a full on application
 // import { getAnalytics } from "firebase/analytics";

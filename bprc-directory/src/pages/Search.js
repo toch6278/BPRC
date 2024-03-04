@@ -1,105 +1,104 @@
-import * as React from 'react'
-import { useState, useEffect } from 'react';
-import MainLayout from "../MainLayout"
-import Hashtag from "../Hashtag"
-import { collection, query, where, doc, getDocs, deleteDoc } from "firebase/firestore";
+import React, { useState, useEffect } from 'react';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { directory } from '../config/firebase';
-import "./style.css";
+import MainLayout from '../MainLayout';
+import Hashtag from '../Hashtag';
+// import DisplayCard from './Card';
+// import Map from '../components/map';
 
-// https://www.youtube.com/watch?v=2yNyiW_41H8 
-// https://www.youtube.com/watch?v=s1frrNxq4js
-// Create search bar: https://www.youtube.com/watch?v=x7niho285qs 
+function SearchResource() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
-// search for resource 
-function SearchResource(){
-    
-    // const [name, getName] = useState('');
+  useEffect(() => {
 
-    const getResource = async (event) => {
-        event.preventDefault(); 
-        await getDocs(doc(directory, 'Resources', 'Document_ID', 'hashtag1'))
-        .then((docSnap) => {
-            let alertField = docSnap.data().alert_state
-            console.log(alertField)
-        })
-    }
+    console.log('collection:', collection(directory, 'Resources'));
+    console.log('where:', where);
+    console.log('searchTerm:', searchTerm);
 
-    const getHashtagResource = async (event) => {
-        event.preventDefault(); 
-        const q = query(collection(directory, 'resources'), where('hashtag1', '==', true));
-        const querySnapshot = await getDocs(q); 
-        querySnapshot.forEach((doc) => {
-            console.log(doc.id, "=>", doc.data()); 
-        });
-    }
+    const fetchData = async () => {
+        if (searchTerm.trim() === '') {
+          setSearchResults([]);
+          return;
+        }
+  
+        const q = query(collection(directory, 'Resources'), where('hashtag1', '==', searchTerm));
+  
+        try {
+          const querySnapshot = await getDocs(q);
+          const results = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }));
+          setSearchResults(results);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, [searchTerm]);
 
-    const [hashtagList, setHashtagList] = useState([]);
-
-    const hashtagCollectionRef = collection(directory, "Hashtags");
-
-    useEffect(() => {
-        getResource();
-
-        //use async function to make the useEffect() work
-        const getHashtagList = async () => {
-            // read data from database
-            // set the resource list
-            try {
-            const data = await getDocs(hashtagCollectionRef);
-            const filteredData = data.docs.map((doc) =>({
-                ...doc.data(), 
-                id: doc.id,
-            }));
-            console.log(filteredData);
-            setHashtagList(filteredData);
-            } catch (err) {
-            console.error(err);
-            }
-        };
-    
-        getHashtagList();
-    }, []);
-
-}
-// delete documents
-const deleteResource = document.querySelector('.delete')
-// deleteResource.addEventListener('traah', (event) => {
-//     event.preventDefault()
-
-//     const resourceRef = doc(directory, 'Resources', deleteResource.id.value); 
-    
-//     deleteDoc(resourceRef)
-//         .then(() => {
-//             deleteResource.reset()
-//         })
-// })
-
-// https://www.youtube.com/watch?v=ckkeZ_f3b-M
-// Display the searched resource
-
-function Search() {
-    return (
-        <div>
-            <MainLayout> </MainLayout>
-                <div className = 'container'> 
-                {/* onSubmit = {getResource} */}
-                    <div className = 'searchInputs'>
-                        <div className = 'title'> Search Resource </div>
-                        <input 
-                            type = "text" 
-                            name = "name" 
-                            // value = {name} 
-                            placeholder = "Search for hashtag"
-                            autoComplete = "off"
-                            required
-                        />
-                        <div className = 'searchIcon'> </div>
-                        <button > Search </button>
-                    </div>
-                    <Hashtag/>
-                </div>       
+  return (
+    <div>
+      <MainLayout />
+      <div className="container">
+        <div className="searchInputs">
+          <div className="title">Search Resource</div>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search by hashtag"
+            autoComplete="off"
+            required
+          />
+          <div className="searchIcon"></div>
+          <button type="submit">Search</button>
         </div>
-    )
+        {/* <Hashtag /> */}
+      </div>
+      {/* <Map /> */}
+      <div>
+        <h3>Result:</h3>
+        <div className = "card">
+            <ul>
+                {searchResults.map((result) => (
+                    <li key={result.id}>
+                    {/* Check if result.data exists before accessing properties */}
+                    {result.data && (
+                        <>
+                        <strong>ID:</strong> {result.id}
+                        <br />
+                        <strong>name:</strong> {result.data.name}
+                        <br />
+                        <strong>hashtag1:</strong> {result.data.hashtag1}
+                        <br />
+                        <strong>hashtag2:</strong> {result.data.hashtag2}
+                        <br />
+                        <strong>phone:</strong> {result.data.phone}
+                        <br />
+                        <strong>email:</strong> {result.data.email}
+                        <br />
+                        <strong>address:</strong> {result.data.address}
+                        <br />
+                        <strong>area:</strong> {result.data.area}
+                        <br />
+                        <strong>website:</strong> {result.data.website}
+                        <br />
+                        {/* Include other fields as needed */}
+                        {/* <strong>AnotherField:</strong> {result.data.AnotherField} */}
+                        {/* Add more fields as needed */}
+                        </>
+                    )}
+                    </li>
+                ))}
+            </ul>
+        </div>
+        {/* <DisplayCard /> */}
+      </div>
+    </div>
+  );
 }
 
-export default Search
+export default SearchResource;
