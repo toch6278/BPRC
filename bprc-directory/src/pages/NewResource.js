@@ -53,15 +53,15 @@ function NewResource(){
         alert("Added Resource to Database");
         
         // clear previous inputs
-        setName({ name: " " });
-        setPhone({ phone: " " });
-        setEmail({ email: " " });
-        setAddress({ address: " " });
-        setArea({ area: " " });
-        setWebsite({ website: " " });
-        setDescription({ description: " " });
-        setHashtag1({ hashtag1: " " });
-        setHashtag2({ hashtag2: " " });
+        setName("");
+        setPhone("");
+        setEmail("");
+        setAddress("");
+        setArea("");
+        setWebsite("");
+        setDescription("");
+        setHashtag1("");
+        setHashtag2("");
 
     }
 
