@@ -241,3 +241,8 @@ form {
 .info {
     margin: 1rem; 
 }
+
+.flex-container {
+    /* display: flex; */
+    flex-grow: 20;
+}

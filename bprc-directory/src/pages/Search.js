@@ -45,24 +45,27 @@ function SearchResource() {
   return (
     <div>
       <MainLayout />
-      <div className="container">
-        <form onSubmit={handleSearch} className="searchInputs">
-          <div className="title">Search Resource</div>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search by hashtag"
-            autoComplete="off"
-            required
-          />
-          <div className="searchIcon"></div>
-          <button type="submit">Search</button>
-        </form>
-        {/* <Hashtag /> */}
-        <Map locations={searchResults} searchTerm={searchTerm}/>
-      </div>
+      <div className = 'flex-container'>
+        <div id = "map">
+              <Map locations={searchResults} searchTerm={searchTerm}/>
+        </div>
+        <div className="container">
+          <form onSubmit={handleSearch} className="searchInputs">
+            <div className="title">Search Resource</div>
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search by hashtag"
+              autoComplete="off"
+              required
+            />
+            <div className="searchIcon"></div>
+            <button type="submit">Search</button>
+          </form>
+        </div>
       {/* <Map /> */}
+      </div>
       <div className = "results">
         <h3>Result:</h3>
         <div className = "card">
