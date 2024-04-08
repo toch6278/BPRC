@@ -25,7 +25,7 @@ function Navbar() {
                 </span> 
             </Link>
             <div className = "links">
-                <Link to = "/search"style = {linkStyle}> Search </Link>
+                {/* <Link to = "/search"style = {linkStyle}> Search </Link> */}
                 <Link to = "/new-resource" style = {linkStyle}> + New Resource </Link>
             </div>
         </div>
