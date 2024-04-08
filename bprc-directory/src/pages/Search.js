@@ -3,7 +3,7 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { directory } from '../config/firebase';
 import MainLayout from '../MainLayout';
 // import DisplayCard from './Card';
-import Map from '../components/map.js';
+import Map from '../components/Map';
 
 function SearchResource() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,12 +44,10 @@ function SearchResource() {
 
   return (
     <div>
-<<<<<<< HEAD
-      {/* <MainLayout /> */}
+      <MainLayout />
       <div className = 'flex-container'>
         <div id = "map">
-          {/* <Map/> */}
-              {/* <Map locations={searchResults} searchTerm={searchTerm}/> */}
+              <Map locations={searchResults} searchTerm={searchTerm}/>
         </div>
         <div className="container">
           <form onSubmit={handleSearch} className="searchInputs">
@@ -67,27 +65,7 @@ function SearchResource() {
           </form>
         </div>
       {/* <Map /> */}
-=======
-      <MainLayout />
-      <div className="container">
-        <form onSubmit={handleSearch} className="searchInputs">
-          <div className="title">Search Resource</div>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search by hashtag"
-            autoComplete="off"
-            required
-          />
-          <div className="searchIcon"></div>
-          <button type="submit">Search</button>
-        </form>
-        {/* <Hashtag /> */}
-        <Map locations={searchResults} searchTerm={searchTerm}/>
->>>>>>> parent of 1480c3e (trying to get map to work)
       </div>
-      {/* <Map /> */}
       <div className = "results">
         <h3>Result:</h3>
         <div className = "card">
