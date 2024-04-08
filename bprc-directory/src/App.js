@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import './App.css';
 import { Auth } from "./components/auth.js";
 import { directory } from "./config/firebase";
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, cosllection } from 'firebase/firestore';
 import MainLayout from "./MainLayout"
 import Hashtag from "./Hashtag"
+import SearchResource from "./pages/Search"
 
 
 // need to make sure to have node.js, react.js (npm install react), and firebase is connected (npx install firebase)
@@ -18,7 +19,8 @@ function App() {
       <header className="App-header">
         <p> BPRC Resource Directory</p>
         <p> Access all available resources through the Boulder Pregnancy Rescource Center</p>
-        <Auth />
+        {/* <Auth /> */}
+        <SearchResource/>
         <Hashtag/>
       </header>
       

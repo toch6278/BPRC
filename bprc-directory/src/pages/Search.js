@@ -3,7 +3,7 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { directory } from '../config/firebase';
 import MainLayout from '../MainLayout';
 // import DisplayCard from './Card';
-import Map from '../components/Map';
+import Map from '../components/map.js';
 
 function SearchResource() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,10 +44,11 @@ function SearchResource() {
 
   return (
     <div>
-      <MainLayout />
+      {/* <MainLayout /> */}
       <div className = 'flex-container'>
         <div id = "map">
-              <Map locations={searchResults} searchTerm={searchTerm}/>
+          {/* <Map/> */}
+              {/* <Map locations={searchResults} searchTerm={searchTerm}/> */}
         </div>
         <div className="container">
           <form onSubmit={handleSearch} className="searchInputs">

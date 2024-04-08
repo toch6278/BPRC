@@ -1,7 +1,7 @@
 // Map.js
 import React, { useEffect } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-
+// import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import mapboxgl from 'mapbox-gl';
 
 function Map ({ locations }) {
   const mapContainerStyle = {
@@ -10,9 +10,18 @@ function Map ({ locations }) {
     margin: '2px'
   };
 
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  // var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+
+  // mapboxgl.accessToken = 'MAPBOX_ACCESS_TOKEN';
+  // var map = new mapboxgl.Map({
+  //   container: 'YOUR_CONTAINER_ELEMENT_ID',
+  //   style: 'mapbox://styles/mapbox/streets-v11'
+  // });
+
+  const apiKey = process.env.MAPBOX_ACCESS_TOKEN;
   // BPRC: 40.02397709658467, -105.28108415727803
-  const center = { lat: 40.02397709658467, lng: -105.28108415727803 }; // Set your default center
+  // const center = { lat: 40.02397709658467, lng: -105.28108415727803 }; // Set your default center
+  const center = { lat: 38.314, lng: -104.789 }; // Set your default center
 
 
   // useEffect(() => {
@@ -59,15 +68,38 @@ function Map ({ locations }) {
   //     });
   //   });
   // };
+    useEffect(() => {
+      mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN; // Replace with your Mapbox access token
+
+      const map = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [center.lng, center.lat], // Note: Mapbox uses [lng, lat] format
+        zoom: 4,
+      });
+
+      locations.forEach((location) => {
+        new mapboxgl.Marker()
+          .setLngLat([location.lng, location.lat])
+          .addTo(map);
+      });
+
+      // Cleanup
+      return () => map.remove();
+    }, [locations]);
 
   return (
-    <LoadScript googleMapsApiKey={apiKey}>
-      <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={4}>
-        {locations.map((location) => (
-          <Marker key={location.id} position={{ lat: location.lat, lng: location.lng }} />
-        ))}
-      </GoogleMap>
-    </LoadScript>
+    // Google Maps
+    // <LoadScript googleMapsApiKey={apiKey}>
+    //   <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={4}>
+    //     {locations.map((location) => (
+    //       <Marker key={location.id} position={{ lat: location.lat, lng: location.lng }} />
+    //     ))}
+    //   </GoogleMap>
+    // </LoadScript>
+
+    // Mapbox Map
+    <div ref = {mapContainerStyle}> </div>
   );
 
 };
