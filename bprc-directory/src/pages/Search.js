@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { directory } from '../config/firebase';
 import MainLayout from '../MainLayout';
+import Hashtag from '../Hashtag';
 // import DisplayCard from './Card';
-import Map from '../components/Map';
+// import Map from '../components/map';
 
 function SearchResource() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,12 +36,9 @@ function SearchResource() {
         };
 
         const handleSearch = (event) => {
-          event.preventDefault();
-          fetchData(); // Trigger fetchData when the search button is clicked
-          //Clear the search bar
-          // setSearchTerm('');  
-        };
-
+        event.preventDefault();
+        fetchData(); // Trigger fetchData when the search button is clicked
+    };
 
   return (
     <div>
@@ -60,15 +58,14 @@ function SearchResource() {
           <button type="submit">Search</button>
         </form>
         {/* <Hashtag /> */}
-        <Map locations={searchResults} searchTerm={searchTerm}/>
       </div>
       {/* <Map /> */}
       <div className = "results">
         <h3>Result:</h3>
         <div className = "card">
-            {/* <ul> */}
+            <ul>
                 {searchResults.map((result) => (
-                    <div className = "info" key={result.id}>
+                    <li key={result.id}>
                     {/* Check if result.data exists before accessing properties */}
                     {result.data && (
                         <>
@@ -90,16 +87,14 @@ function SearchResource() {
                         <br />
                         <strong>Website:</strong> {result.data.website}
                         <br />
-                        <strong>Description:</strong> {result.data.description}
-                        <br />
                         {/* Include other fields as needed */}
                         {/* <strong>AnotherField:</strong> {result.data.AnotherField} */}
                         {/* Add more fields as needed */}
                         </>
                     )}
-                    </div>
+                    </li>
                 ))}
-            {/* </ul> */}
+            </ul>
         </div>
         {/* <DisplayCard /> */}
       </div>

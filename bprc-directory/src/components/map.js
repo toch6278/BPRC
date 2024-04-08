@@ -1,33 +1,27 @@
-// Map.js
-import React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import axios from 'axios';
+import * as React from 'react'
+import { useState, useMemo, useCallback, useRef } from 'react';
+import { GoogleMap, Marker, DirectionsRenderer, Circle, MarkerClusterer} from "@react-google-maps/api";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-function Map ({ locations }) {
-  const mapContainerStyle = {
-    width: '100%',
-    height: '400px',
-  };
+// Source: https://www.youtube.com/watch?v=6mFaeJ4JfVM 
 
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const center = { lat: 0, lng: 0 }; // Set your default center
+export default class Map extends React.Component {
 
+    // header = () =? {
+    //     return {
 
-  const initMap = () => {
-    // Your map initialization logic here
-    // Use the 'locations' prop to add markers or perform other map-related operations
-  };
+    //     }
+    // }
+    // map = () => {
+    //     return {
+    //         <div className = "map"> Map </div>
+    //     }
+    // }
 
-  return (
-    <LoadScript googleMapsApiKey={apiKey}>
-      <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={4}>
-        {locations.map((location) => (
-          <Marker key={location.id} position={{ lat: location.lat, lng: location.lng }} />
-        ))}
-      </GoogleMap>
-    </LoadScript>
-  );
-
-};
-
-export default Map;
+    // render()
+    // {
+        // return (
+            
+        // )
+    // }
+}
