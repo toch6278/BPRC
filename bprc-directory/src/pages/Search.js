@@ -58,6 +58,10 @@ function SearchResource() {
           <button type="submit">Search</button>
         </form>
         {/* <Hashtag /> */}
+<<<<<<< HEAD
+=======
+        <Map locations={searchResults} searchTerm={searchTerm}/>
+>>>>>>> parent of 1480c3e (trying to get map to work)
       </div>
       {/* <Map /> */}
       <div className = "results">

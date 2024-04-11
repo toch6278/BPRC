@@ -236,4 +236,11 @@ form {
 {
     background: white;
     padding: 30px;
+<<<<<<< HEAD
+=======
+}
+
+.info {
+    margin: 1rem; 
+>>>>>>> parent of 1480c3e (trying to get map to work)
 }
